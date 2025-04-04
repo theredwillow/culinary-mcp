@@ -31,6 +31,12 @@ def get_list(file_name):
     return ", ".join(list)
 
 
+def check_for_item(file_name, item):
+    file_path = get_file_path(file_name)
+    list_items = read_file(file_path)
+    return item in list_items
+
+
 def add_to_list(file_name, item):
     file_path = get_file_path(file_name)
     list = read_file(file_path)

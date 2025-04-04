@@ -1,6 +1,7 @@
 ## General
 - Does MCP have versioning?
 - Add bar code / SKU system, read grocery store receipts, etc...
+- Add error handling for Python file operations
 
 ## Config
 - Record user preferences like allergies and diet information
@@ -11,7 +12,7 @@
 - Record meal suggestions and, if provided, whether the user liked them
 
 ## Shopping lists
-- On add: Is in inventory? Should remove from inventory or cancel?
+- Currently checks for exact string, ask LLM for synonyms (e.g. garbanzo beans and chickpeas)
 - Connect to grocery store API('s) to add aisle numbers
 
 ## Recipe book
