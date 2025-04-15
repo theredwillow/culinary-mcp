@@ -1,6 +1,9 @@
 import json
 
-DATA_PATH = r"C:\Users\there\OneDrive\Documents\Scripts\culinary-mcp\data"
+# CONFIG
+# IMPORTANT: Provide a full, absolute path to the data directory
+# (Relative pathing doesn't work from inside Claude)
+DATA_PATH = json.load(open("data/config.json"))["data_path"]
 
 # FILE UTILS
 

@@ -3,6 +3,7 @@
 - Add bar code / SKU system, read grocery store receipts, etc...
 - Add error handling for Python file operations
 - Create model-specific localization files
+- Create setup.py to generate empty, git-untracked data files for new users
 
 ## Config
 - Record user preferences like allergies and diet information
