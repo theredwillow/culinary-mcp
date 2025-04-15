@@ -1,9 +1,39 @@
 # mcp.py
 
 from fastmcp import FastMCP
+from mcp.server.fastmcp.prompts import Prompt
+from mcp.server.fastmcp.prompts.base import PromptArgument
 from utils import get_list, add_to_list, remove_from_list, check_for_item
+from prompts import build_meal_suggestion_prompt
 
 mcp = FastMCP("Chef Consultant 👨‍🍳")
+
+# MEAL PLAN TOOLS
+meal_suggestion_prompt = Prompt(
+    name="suggest-a-meal",
+    description="Suggest a meal, taking into account the user's preferences",
+    arguments=[
+        PromptArgument(
+            name="cuisine",
+            description="The cuisine of the meal",
+            required=False,
+        ),
+        PromptArgument(
+            name="ingredients",
+            description="Ingredients that must be used in the meal",
+            required=False,
+        ),
+    ],
+    fn=build_meal_suggestion_prompt,
+)
+mcp.add_prompt(meal_suggestion_prompt)
+
+
+@mcp.tool()
+def get_preferences() -> str:
+    """Get the user's preferences"""
+    return get_list("preferences")
+
 
 # INVENTORY TOOLS
 
@@ -53,10 +83,22 @@ def add_item_to_shopping_list(item: str, force: bool = False) -> str:
 
 
 @mcp.tool()
+def add_multiple_items_to_shopping_list(items: list[str]) -> str:
+    """Add multiple items to the shopping list"""
+    return {item: add_item_to_shopping_list(item) for item in items}
+
+
+@mcp.tool()
 def remove_item_from_shopping_list(item: str) -> str:
     """Remove an item from the shopping list"""
     remove_from_list("shopping-list", item)
     return "Removed."
+
+
+@mcp.tool()
+def remove_multiple_items_from_shopping_list(items: list[str]) -> str:
+    """Remove multiple items from the shopping list"""
+    return {item: remove_item_from_shopping_list(item) for item in items}
 
 
 # MULTIPLE DOMAIN TOOLS
@@ -70,3 +112,8 @@ def check_for_item_in_either_list(item: str) -> str:
     if check_for_item("shopping-list", item):
         return "In shopping list."
     return "Not found."
+
+@mcp.tool()
+def check_for_multiple_items_in_either_list(items: list[str]) -> str:
+    """Check if multiple items are in the inventory or shopping list"""
+    return {item: check_for_item_in_either_list(item) for item in items}

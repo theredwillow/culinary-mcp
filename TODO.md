@@ -2,6 +2,7 @@
 - Does MCP have versioning?
 - Add bar code / SKU system, read grocery store receipts, etc...
 - Add error handling for Python file operations
+- Create model-specific localization files
 
 ## Config
 - Record user preferences like allergies and diet information
